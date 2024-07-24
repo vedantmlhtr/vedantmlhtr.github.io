@@ -256,5 +256,19 @@ display: none;
     <a href="https://www.linkedin.com/in/malhotra-vedant/">[LinkedIn]</a>
     <a href="mailto:malhotra.vedant@gmail.com">[Mail]</a>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const image = document.getElementById("me");
+      let clickCount = 0;
+
+      image.addEventListener("click", () => {
+        clickCount++;
+        
+        if (clickCount >= 10) {
+          image.src = "images/me3.JPG";
+        }
+      });
+    });
+  </script>
 </body>
 </html>
