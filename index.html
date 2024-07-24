@@ -1,12 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+        .post-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .post-list li {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .post-list a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .post-list a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
+
+<header>
     <h1>Welcome to My Blog</h1>
-    <ul>
-        <li><a href="post1.html">My First Blog Post</a></li>
+    <p>Hello! I'm [Your Name], and this is my space where I share my thoughts and experiences.</p>
+</header>
+
+<section>
+    <h2>Recent Posts</h2>
+    <ul class="post-list">
+        <li>
+            <h3><a href="post1.html">My First Blog Post</a></h3>
+            <p>This is a short summary of my first blog post to entice readers to click and read more.</p>
+        </li>
+        <!-- Add more posts as needed -->
     </ul>
+</section>
+
+<footer>
+    <p>Connect with me on <a href="https://twitter.com/yourusername">Twitter</a>, <a href="https://www.linkedin.com/in/yourusername/">LinkedIn</a>, and <a href="https://github.com/yourusername">GitHub</a>.</p>
+</footer>
+
 </body>
 </html>
