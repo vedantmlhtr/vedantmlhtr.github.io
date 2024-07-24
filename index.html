@@ -262,11 +262,6 @@ display: none;
       const image = document.getElementById("me");
       let clickCount = 0;
 
-      if (!image) {
-        console.error("Image element not found.");
-        return;
-      }
-
       image.addEventListener("click", () => {
         clickCount++;
         console.log(`Click count: ${clickCount}`);
