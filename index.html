@@ -258,29 +258,15 @@ display: none;
     <a href="mailto:malhotra.vedant@gmail.com">[Mail]</a>
   </div>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const image = document.getElementById("me");
+        document.addEventListener("DOMContentLoaded", () => {
+      const image = document.getElementById("easter-egg");
       let clickCount = 0;
-
+    
       image.addEventListener("click", () => {
         clickCount++;
-        console.log(`Click count: ${clickCount}`);
-
+        
         if (clickCount >= 10) {
-          console.log("Easter egg triggered.");
-          
-          const newImagePath = "images/me3.JPG";
-          const img = new Image();
-          img.src = newImagePath;
-
-          img.onload = () => {
-            console.log("Easter egg image loaded.");
-            image.src = newImagePath;
-          };
-
-          img.onerror = () => {
-            console.error("Easter egg image could not be loaded.");
-          };
+          image.src = "images/easter-egg-picture.jpg"; // Path to your Easter egg image
         }
       });
     });
