@@ -300,36 +300,45 @@ display: none;
   \[ \varphi(\phi) = \exp \left( i\phi \ln S_t + A(\phi) + B(\phi) v_0 \right)\]
 </p>
 
-   <h1 id="heston-calc">Option Pricing Calculator</h1>
+    <h1 id="heston-calc">Option Pricing Calculator</h1>
   
   <form id="pricing-form">
     <label for="S0">Stock Price (S₀): <span class="value" id="S0-val">100</span></label>
     <input type="range" id="S0" min="50" max="200" value="100" step="1" oninput="updateSliderValue('S0', this.value)">
+    <br>
     
     <label for="K">Strike Price (K): <span class="value" id="K-val">100</span></label>
     <input type="range" id="K" min="50" max="200" value="100" step="1" oninput="updateSliderValue('K', this.value)">
+    <br>
     
     <label for="T">Time to Maturity (T): <span class="value" id="T-val">1</span> year</label>
     <input type="range" id="T" min="0.1" max="5" value="1" step="0.1" oninput="updateSliderValue('T', this.value)">
+    <br>
     
     <label for="r">Risk-Free Rate (r): <span class="value" id="r-val">0.05</span></label>
     <input type="range" id="r" min="0" max="0.2" value="0.05" step="0.01" oninput="updateSliderValue('r', this.value)">
+    <br>
     
     <label for="sigma">Volatility (σ): <span class="value" id="sigma-val">0.2</span></label>
     <input type="range" id="sigma" min="0.05" max="1" value="0.2" step="0.01" oninput="updateSliderValue('sigma', this.value)">
+    <br>
     
     <label for="v0">Initial Variance (v₀): <span class="value" id="v0-val">0.04</span></label>
     <input type="range" id="v0" min="0.01" max="1" value="0.04" step="0.01" oninput="updateSliderValue('v0', this.value)">
+    <br>
     
     <label for="kappa">Mean Reversion Rate (κ): <span class="value" id="kappa-val">2</span></label>
     <input type="range" id="kappa" min="0" max="5" value="2" step="0.1" oninput="updateSliderValue('kappa', this.value)">
+    <br>
     
     <label for="theta">Long-Term Variance (θ): <span class="value" id="theta-val">0.04</span></label>
     <input type="range" id="theta" min="0.01" max="0.5" value="0.04" step="0.01" oninput="updateSliderValue('theta', this.value)">
+    <br>
     
     <label for="rho">Correlation (ρ): <span class="value" id="rho-val">-0.5</span></label>
     <input type="range" id="rho" min="-1" max="1" value="-0.5" step="0.01" oninput="updateSliderValue('rho', this.value)">
-    
+    <br>
+
     <button type="button" onclick="calculateOptionPrices()">Calculate Prices</button>
   </form>
 
@@ -389,22 +398,6 @@ display: none;
       const S0 = parseFloat(document.getElementById('S0').value);
       const K = parseFloat(document.getElementById('K').value);
       const T = parseFloat(document.getElementById('T').value);
-      const r = parseFloat(document.getElementById('r').value);
-      const sigma = parseFloat(document.getElementById('sigma').value);
-      const v0 = parseFloat(document.getElementById('v0').value);
-      const kappa = parseFloat(document.getElementById('kappa').value);
-      const theta = parseFloat(document.getElementById('theta').value);
-      const rho = parseFloat(document.getElementById('rho').value);
-
-      // Calculate Black-Scholes Price
-      const bsPrice = blackScholes(S0, K, T, r, sigma);
-      document.getElementById('result-bs').innerText = `Black-Scholes Price: $${bsPrice.toFixed(2)}`;
-
-      // Calculate Heston Model Price
-      const hestonPrice = hestonCall(S0, K, T, r, kappa, theta, sigma, rho, v0);
-      document.getElementById('result-heston').innerText = `Heston Model Price: $${hestonPrice.toFixed(2)}`;
-    }
-  </script>
         
         
   <section id="footnotes"
