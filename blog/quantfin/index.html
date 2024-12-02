@@ -241,10 +241,10 @@ display: none;
       <p>The Heston model is a popular framework in quantitative finance for modeling the stochastic volatility of an asset. It assumes that the variance of the asset price follows a mean-reverting stochastic process, leading to a more realistic representation of market behaviors such as volatility clustering.</p>
       <h2 id="derivation">Deriving the Asset Pricing Equation</h2>
       <p>The asset price \( S_t \) evolves as:</p>
-      <pre><code>dS_t = r S_t dt + \sqrt{v_t} S_t dW_t^S</code></pre>
+      \[\partial S_{t} = r\cdot S_{t}\cdot \partial t + \sqrt{v_{t}}\cdot S_t\cdot \partialW_{t}^S\]
       <p>The variance \( v_t \) follows the dynamics:</p>
-      <pre><code>dv_t = \kappa (\theta - v_t) dt + \sigma_v \sqrt{v_t} dW_t^v</code></pre>
-      <p>where \( \rho = \text{Corr}(W_t^S, W_t^v) \). Solving these equations under the risk-neutral measure yields the pricing formula for derivatives.</p>
+      \[\partial v_t = \kappa \cdot (\theta - v_{t})\cdot \partial t + \sigma_{v} \cdot \sqrt{v_{t}} \cdot \partialW_{t}^v\]
+      <p>where \( \rho = \text{corr}(W_t^S, W_t^v) \). Solving these equations under the risk-neutral measure yields the pricing formula for derivatives.</p>
       <h2 id="heston-calc">Heston Option Pricing Calculator</h2>
       <form id="calculator">
         <label for="s">Stock Price (\(S_t\)):</label><br />
