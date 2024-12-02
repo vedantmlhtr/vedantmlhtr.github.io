@@ -237,46 +237,180 @@ display: none;
     <h1
       id="heston-model">The Heston Model</h1>
     <main class="main-content">
-      <h2 id="introduction-heston">Introduction</h2>
-      <p>The Heston model is a popular framework in quantitative finance for modeling the stochastic volatility of an asset. It assumes that the variance of the asset price follows a mean-reverting stochastic process, leading to a more realistic representation of market behaviors such as volatility clustering.</p>
+      <h2 id="introduction-heston">Introduction</h2> 
+      <p> This blogpost serves as a portal for my extra credit project for the course Introduction to Quantitative Finance. For context,
+      the last asset pricing model covered in the course was the Black-Scholes equation<a
+      href="#fn1" class="footnote-ref" id="fnref1"
+      role="doc-noteref"><sup>1</sup></a>. The Black-Scholes equation prices options by
+      assuming that asset prices follow Brownian motion while asset price volatility is constant. The Black-Scholes model is widely popular
+      due to its simplicity and ease of calculation. However, this can be a double-edged sword – critics often regard the simplification
+      gained from assuming constant asset price volatility as an "oversimplification," leading to the need for a model that deals with asset
+      price volatility in a more sophisticated manner.<br>
+      <br>
+      The Heston model<a
+      href="#fn2" class="footnote-ref" id="fnref2"
+      role="doc-noteref"><sup>2</sup></a></p> assumes that asset price volatility also follows Brownian motion, satisfying the same properties
+      as standard Brownian motion. Then, similar to the Black-Scholes model, the Heston model utilises the properties of a no-arbitrage martingale
+      to model the motions of asset price and its volatility.
       <h2 id="derivation">Deriving the Asset Pricing Equation</h2>
-      <p>The asset price \( S_t \) evolves as:</p>
-      \[\partial S_{t} = r\cdot S_{t}\cdot \partial t + \sqrt{v_{t}}\cdot S_t\cdot \partial W_{t}^S\]
-      <p>The variance \( v_t \) follows the dynamics:</p>
-      \[\partial v_t = \kappa \cdot (\theta - v_{t})\cdot \partial t + \sigma_{v} \cdot \sqrt{v_{t}} \cdot \partial W_{t}^v\]
-      <p>where \( \rho = \text{corr}(W_t^S, W_t^v) \). Solving these equations under the risk-neutral measure yields the pricing formula for derivatives.</p>
-      <h2 id="heston-calc">Heston Option Pricing Calculator</h2>
-      <form id="calculator">
-        <label for="s">Stock Price (\(S_t\)):</label><br />
-        <input type="number" id="s" name="s" required /><br />
-        <label for="v">Initial Variance (\(v_t\)):</label><br />
-        <input type="number" id="v" name="v" required /><br />
-        <label for="kappa">Mean-Reversion Rate (\(\kappa\)):</label><br />
-        <input type="number" id="kappa" name="kappa" required /><br />
-        <label for="theta">Long-Term Variance (\(\theta\)):</label><br />
-        <input type="number" id="theta" name="theta" required /><br />
-        <label for="rho">Correlation (\(\rho\)):</label><br />
-        <input type="number" id="rho" name="rho" step="0.01" min="-1" max="1" required /><br />
-        <button type="button" onclick="calculatePrice()">Calculate Price</button>
-      </form>
-      <h3>Price:</h3>
-      <p id="result"></p>
-    </main>
-  </div>
+      <p>Steven Heston proposed the following formulas to model the movement of asset prices, where prices and their volatility both follow
+      Brownian motion:</p>
+      \[\partial S_{t} = r\cdot S_{t}\cdot \partial t + \sqrt{V_{t}}\cdot S_t\cdot \partial W_{1t}^S\]
+      \[\partial v_t = \kappa \cdot (\theta - V_{t})\cdot \partial t + \sigma_{V} \cdot \sqrt{V_{t}} \cdot \partial W_{2t}^V\]
+      <p>where \(V_{t}\) represents the volatility (variance) of the asset price, \(\sigma\) represents the volatility (standard deviation)
+      of this volatility, \(\theta\) represents the long-term price variance, \(\kappa\) represents the "rate-of-reversion" to the long-term 
+       price variance, \(W_{1t}\) and \(W_{2t}\) represent the Brownian motion processes of the asset price and its volatility respectively, 
+        and \(\rho\) represents the correlation coefficient between these Brownian processes.
+      </p>
+  <p>Now, we will apply Ito's Lemma to our definition of \( c(t, S_t, V_t) \), leading to the following terms:</p>
+  <ul>
+    <li>From \( dS_t \):</li>
+    <p>
+      First-order term: \( \frac{\partial c}{\partial S_t} \, dS_t = \frac{\partial c}{\partial S_t} \left( r S_t \, dt + \sqrt{V_t} S_t \, dW_t^1 \right) \) <br>
+      Second-order term: \( \frac{1}{2} \frac{\partial^2 c}{\partial S_t^2} \, V_t S_t^2 \, dt \)
+    </p>
+    <li>From \( dV_t \):</li>
+    <p>
+      First-order term: \( \frac{\partial c}{\partial V_t} \, dV_t = \frac{\partial c}{\partial V_t} \left( \kappa (\theta - V_t) \, dt + \sigma \sqrt{V_t} \, dW_t^2 \right) \) <br>
+      Second-order term: \( \frac{1}{2} \frac{\partial^2 c}{\partial V_t^2} \, \sigma^2 V_t \, dt \)
+    </p>
+    <li>Covariance term:</li>
+    <p>
+      \( dS_t dV_t = \rho \sigma V_t S_t \, dt \), contributing \( \frac{\partial^2 c}{\partial S_t \partial V_t} \, \rho \sigma V_t S_t \, dt \)
+    </p>
+  </ul>
+      
+  <p>Now, combining these terms, we derive the Heston PDE, which relates the option price to its payoffs:</p>
+  <p>
+    \( \frac{\partial c}{\partial t} + r S_t \frac{\partial c}{\partial S_t} + \frac{1}{2} V_t S_t^2 \frac{\partial^2 c}{\partial S_t^2} + \kappa (\theta - V_t) \frac{\partial c}{\partial V_t} + \frac{1}{2} \sigma^2 V_t \frac{\partial^2 c}{\partial V_t^2} + \rho \sigma V_t S_t \frac{\partial^2 c}{\partial S_t \partial V_t} - r c = 0 \)
+  </p>
+
+      <p>This further helps us arrive at the price of a European call option using the Heston model. The price of the call option is given by:</p>
+<p>
+  \[ C(t, S_t) = e^{-r(T-t)} \left[ S_t P_1 - K P_2 \right]\]
+\end{p}
+
+<p>Where:</p>
+<ul>
+  <li> \[ P_1 = \frac{1}{\pi} \int_0^\infty \text{Re} \left[ e^{-i\phi \ln S_t} \varphi(\phi) \right] d\phi \] </li>
+  <li> \[ P_2 = \frac{1}{\pi} \int_0^\infty \text{Re} \left[ e^{-i\phi \ln K} \varphi(\phi) \right] d\phi \] </li>
+</ul>
+
+<p>And the characteristic function \( \varphi(\phi) \) is:</p>
+<p>
+  \[ \varphi(\phi) = \exp \left( i\phi \ln S_t + A(\phi) + B(\phi) v_0 \right)\]
+</p>
+      
+<h1 id="heston-calc">Option Pricing Calculator</h1>
+  <form id="pricing-form">
+    <label for="S0">Stock Price (S₀):</label>
+    <input type="number" id="S0" required>
+
+    <label for="K">Strike Price (K):</label>
+    <input type="number" id="K" required>
+
+    <label for="T">Time to Maturity (T in years):</label>
+    <input type="number" step="0.01" id="T" required>
+
+    <label for="r">Risk-Free Rate (r):</label>
+    <input type="number" step="0.01" id="r" required>
+
+    <label for="sigma">Volatility (σ):</label>
+    <input type="number" step="0.01" id="sigma" required>
+
+    <label for="v0">Initial Variance (v₀):</label>
+    <input type="number" step="0.01" id="v0" required>
+
+    <label for="kappa">Mean Reversion Rate (κ):</label>
+    <input type="number" step="0.01" id="kappa" required>
+
+    <label for="theta">Long-Term Variance (θ):</label>
+    <input type="number" step="0.01" id="theta" required>
+
+    <label for="rho">Correlation (ρ):</label>
+    <input type="number" step="0.01" id="rho" required>
+
+    <label for="sigmaV">Volatility of Variance (σv):</label>
+    <input type="number" step="0.01" id="sigmaV" required>
+
+    <button type="button" onclick="calculateOptionPrices()">Calculate Prices</button>
+  </form>
+
+  <p id="result-bs">Black-Scholes Price: </p>
+  <p id="result-heston">Heston Model Price: </p>
+
   <script>
-    function calculatePrice() {
-      const s = parseFloat(document.getElementById('s').value);
-      const v = parseFloat(document.getElementById('v').value);
+    // Black-Scholes Call Option Pricing Formula
+    function blackScholes(S0, K, T, r, sigma) {
+      const d1 = (Math.log(S0 / K) + (r + 0.5 * Math.pow(sigma, 2)) * T) / (sigma * Math.sqrt(T));
+      const d2 = d1 - sigma * Math.sqrt(T);
+      const cdf_d1 = cumulativeNormal(d1);
+      const cdf_d2 = cumulativeNormal(d2);
+      const price = S0 * cdf_d1 - K * Math.exp(-r * T) * cdf_d2;
+      return price;
+    }
+
+    // Cumulative Normal Distribution Function
+    function cumulativeNormal(x) {
+      return 0.5 * (1 + Math.erf(x / Math.sqrt(2)));
+    }
+
+    // Heston Model Characteristic Function
+    function hestonPhi(phi, S0, kappa, theta, sigma, rho, v0, T) {
+      const i = Math.complex(0, 1);
+      const A = (kappa * theta - 0.5 * Math.pow(sigma, 2)) * (1 - Math.exp(-kappa * T)) / kappa;
+      const B = Math.sqrt(Math.pow(sigma, 2) * Math.pow(1 - Math.exp(-kappa * T), 2) + Math.pow(rho * sigma * T, 2)) / kappa;
+      return Math.exp(i * phi * Math.log(S0) + A + B * v0);
+    }
+
+    // P1 and P2 for Heston Model Option Pricing
+    function P1(S0, kappa, theta, sigma, rho, v0, T) {
+      const integrand = (phi) => Math.real(Math.exp(-i * phi * Math.log(S0)) * hestonPhi(phi, S0, kappa, theta, sigma, rho, v0, T));
+      return quad(integrand, 0, Infinity) / Math.PI;
+    }
+
+    function P2(S0, K, kappa, theta, sigma, rho, v0, T) {
+      const integrand = (phi) => Math.real(Math.exp(-i * phi * Math.log(K)) * hestonPhi(phi, S0, kappa, theta, sigma, rho, v0, T));
+      return quad(integrand, 0, Infinity) / Math.PI;
+    }
+
+    // Heston Option Price
+    function hestonCall(S0, K, T, r, kappa, theta, sigma, rho, v0) {
+      const P1_value = P1(S0, kappa, theta, sigma, rho, v0, T);
+      const P2_value = P2(S0, K, kappa, theta, sigma, rho, v0, T);
+      const price = Math.exp(-r * T) * (S0 * P1_value - K * P2_value);
+      return price;
+    }
+
+    // Function to Calculate Both Option Prices
+    function calculateOptionPrices() {
+      const S0 = parseFloat(document.getElementById('S0').value);
+      const K = parseFloat(document.getElementById('K').value);
+      const T = parseFloat(document.getElementById('T').value);
+      const r = parseFloat(document.getElementById('r').value);
+      const sigma = parseFloat(document.getElementById('sigma').value);
+      const v0 = parseFloat(document.getElementById('v0').value);
       const kappa = parseFloat(document.getElementById('kappa').value);
       const theta = parseFloat(document.getElementById('theta').value);
       const rho = parseFloat(document.getElementById('rho').value);
+      const sigmaV = parseFloat(document.getElementById('sigmaV').value);
 
-      // Placeholder for formula calculation
-      const price = s * Math.sqrt(v) * (1 + kappa * theta * (1 - rho)); 
-      
-      document.getElementById('result').innerText = `The asset price is: ${price.toFixed(2)}`;
+      // Calculate Black-Scholes Price
+      const bsPrice = blackScholes(S0, K, T, r, sigma);
+      document.getElementById('result-bs').innerText = `Black-Scholes Price: $${bsPrice.toFixed(2)}`;
+
+      // Calculate Heston Model Price
+      const hestonPrice = hestonCall(S0, K, T, r, kappa, theta, sigmaV, rho, v0);
+      document.getElementById('result-heston').innerText = `Heston Model Price: $${hestonPrice.toFixed(2)}`;
     }
   </script>
+  <section id="footnotes"
+      class="footnotes footnotes-end-of-document" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn1"><p>Black, Fischer, and Myron Scholes. “The Pricing of Options and Corporate Liabilities.” Journal of Political Economy, vol. 81, no. 3, 1973, pp. 637–54. JSTOR, http://www.jstor.org/stable/1831029. Accessed 2 Dec. 2024.<a
+      href="#fnref1" class="footnote-back"
+      role="doc-backlink">↩︎</a></p></li>
    <footer class="footer">
     Contact: <a href="https://github.com/vedantmlhtr">[GitHub]</a> 
     <a href="https://www.linkedin.com/in/malhotra-vedant/">[LinkedIn]</a>
