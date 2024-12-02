@@ -249,9 +249,9 @@ display: none;
       <br>
       The Heston model<a
       href="#fn2" class="footnote-ref" id="fnref2"
-      role="doc-noteref"><sup>2</sup></a></p> assumes that asset price volatility also follows Brownian motion, satisfying the same properties
+      role="doc-noteref"><sup>2</sup></a> assumes that asset price volatility also follows Brownian motion, satisfying the same properties
       as standard Brownian motion. Then, similar to the Black-Scholes model, the Heston model utilises the properties of a no-arbitrage martingale
-      to model the motions of asset price and its volatility.
+      to model the motions of asset price and its volatility.</p>
       <h2 id="derivation">Deriving the Asset Pricing Equation</h2>
       <p>Steven Heston proposed the following formulas to model the movement of asset prices, where prices and their volatility both follow
       Brownian motion:</p>
@@ -288,7 +288,6 @@ display: none;
       <p>This further helps us arrive at the price of a European call option using the Heston model. The price of the call option is given by:</p>
 <p>
   \[ C(t, S_t) = e^{-r(T-t)} \left[ S_t P_1 - K P_2 \right]\]
-\end{p}
 
 <p>Where:</p>
 <ul>
@@ -300,39 +299,37 @@ display: none;
 <p>
   \[ \varphi(\phi) = \exp \left( i\phi \ln S_t + A(\phi) + B(\phi) v_0 \right)\]
 </p>
-      
-<h1 id="heston-calc">Option Pricing Calculator</h1>
+
+   <h1 id="heston-calc">Option Pricing Calculator</h1>
+  
   <form id="pricing-form">
-    <label for="S0">Stock Price (S₀):</label>
-    <input type="number" id="S0" required>
-
-    <label for="K">Strike Price (K):</label>
-    <input type="number" id="K" required>
-
-    <label for="T">Time to Maturity (T in years):</label>
-    <input type="number" step="0.01" id="T" required>
-
-    <label for="r">Risk-Free Rate (r):</label>
-    <input type="number" step="0.01" id="r" required>
-
-    <label for="sigma">Volatility (σ):</label>
-    <input type="number" step="0.01" id="sigma" required>
-
-    <label for="v0">Initial Variance (v₀):</label>
-    <input type="number" step="0.01" id="v0" required>
-
-    <label for="kappa">Mean Reversion Rate (κ):</label>
-    <input type="number" step="0.01" id="kappa" required>
-
-    <label for="theta">Long-Term Variance (θ):</label>
-    <input type="number" step="0.01" id="theta" required>
-
-    <label for="rho">Correlation (ρ):</label>
-    <input type="number" step="0.01" id="rho" required>
-
-    <label for="sigmaV">Volatility of Variance (σv):</label>
-    <input type="number" step="0.01" id="sigmaV" required>
-
+    <label for="S0">Stock Price (S₀): <span class="value" id="S0-val">100</span></label>
+    <input type="range" id="S0" min="50" max="200" value="100" step="1" oninput="updateSliderValue('S0', this.value)">
+    
+    <label for="K">Strike Price (K): <span class="value" id="K-val">100</span></label>
+    <input type="range" id="K" min="50" max="200" value="100" step="1" oninput="updateSliderValue('K', this.value)">
+    
+    <label for="T">Time to Maturity (T): <span class="value" id="T-val">1</span> year</label>
+    <input type="range" id="T" min="0.1" max="5" value="1" step="0.1" oninput="updateSliderValue('T', this.value)">
+    
+    <label for="r">Risk-Free Rate (r): <span class="value" id="r-val">0.05</span></label>
+    <input type="range" id="r" min="0" max="0.2" value="0.05" step="0.01" oninput="updateSliderValue('r', this.value)">
+    
+    <label for="sigma">Volatility (σ): <span class="value" id="sigma-val">0.2</span></label>
+    <input type="range" id="sigma" min="0.05" max="1" value="0.2" step="0.01" oninput="updateSliderValue('sigma', this.value)">
+    
+    <label for="v0">Initial Variance (v₀): <span class="value" id="v0-val">0.04</span></label>
+    <input type="range" id="v0" min="0.01" max="1" value="0.04" step="0.01" oninput="updateSliderValue('v0', this.value)">
+    
+    <label for="kappa">Mean Reversion Rate (κ): <span class="value" id="kappa-val">2</span></label>
+    <input type="range" id="kappa" min="0" max="5" value="2" step="0.1" oninput="updateSliderValue('kappa', this.value)">
+    
+    <label for="theta">Long-Term Variance (θ): <span class="value" id="theta-val">0.04</span></label>
+    <input type="range" id="theta" min="0.01" max="0.5" value="0.04" step="0.01" oninput="updateSliderValue('theta', this.value)">
+    
+    <label for="rho">Correlation (ρ): <span class="value" id="rho-val">-0.5</span></label>
+    <input type="range" id="rho" min="-1" max="1" value="-0.5" step="0.01" oninput="updateSliderValue('rho', this.value)">
+    
     <button type="button" onclick="calculateOptionPrices()">Calculate Prices</button>
   </form>
 
@@ -382,6 +379,11 @@ display: none;
       return price;
     }
 
+    // Update slider value
+    function updateSliderValue(sliderId, value) {
+      document.getElementById(sliderId + '-val').innerText = value;
+    }
+
     // Function to Calculate Both Option Prices
     function calculateOptionPrices() {
       const S0 = parseFloat(document.getElementById('S0').value);
@@ -393,24 +395,28 @@ display: none;
       const kappa = parseFloat(document.getElementById('kappa').value);
       const theta = parseFloat(document.getElementById('theta').value);
       const rho = parseFloat(document.getElementById('rho').value);
-      const sigmaV = parseFloat(document.getElementById('sigmaV').value);
 
       // Calculate Black-Scholes Price
       const bsPrice = blackScholes(S0, K, T, r, sigma);
       document.getElementById('result-bs').innerText = `Black-Scholes Price: $${bsPrice.toFixed(2)}`;
 
       // Calculate Heston Model Price
-      const hestonPrice = hestonCall(S0, K, T, r, kappa, theta, sigmaV, rho, v0);
+      const hestonPrice = hestonCall(S0, K, T, r, kappa, theta, sigma, rho, v0);
       document.getElementById('result-heston').innerText = `Heston Model Price: $${hestonPrice.toFixed(2)}`;
     }
   </script>
+        
+        
   <section id="footnotes"
       class="footnotes footnotes-end-of-document" role="doc-endnotes">
       <hr />
       <ol>
-      <li id="fn1"><p>Black, Fischer, and Myron Scholes. “The Pricing of Options and Corporate Liabilities.” Journal of Political Economy, vol. 81, no. 3, 1973, pp. 637–54. JSTOR, http://www.jstor.org/stable/1831029. Accessed 2 Dec. 2024.<a
+      <li id="fn1"><p>Black, F., and Scholes, M. “The Pricing of Options and Corporate Liabilities.” Journal of Political Economy, vol. 81, no. 3, 1973, pp. 637–54.<a
       href="#fnref1" class="footnote-back"
       role="doc-backlink">↩︎</a></p></li>
+      <li id="fn2"><p>S. Heston, “A Closed-Form Solution for Options with Stochastic Volatility with Applications to Bond
+      and Currency Options.” The Review of Financial Studies (1993), 6, 327-343.<a href="fnref2" class="footnote-back" role="doc-backlink"></a></p></li>
+        
    <footer class="footer">
     Contact: <a href="https://github.com/vedantmlhtr">[GitHub]</a> 
     <a href="https://www.linkedin.com/in/malhotra-vedant/">[LinkedIn]</a>
