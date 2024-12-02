@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Introduction and implementation of the Heston Model for asset pricing." />
-  <title>Heston Model: Explanation and Calculator</title>
+  <meta name="description" content="Clearing up the fog around the new CGTs in a systematic manner by calculating appropriate investing benchmarks.">
+  <title>Benchmarks and Takeaways from the Union Budget 2024</title>
   <style type="text/css">@font-face {
 font-family: 'Roboto';
 font-style: normal;
@@ -152,6 +152,31 @@ header {
 margin-bottom: 4em;
 text-align: center;
 }
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
 body {
 text-align: justify; font-family: "Roboto", sans-serif;
 line-height: 1.5; hyphens: auto;
@@ -159,23 +184,66 @@ line-height: 1.5; hyphens: auto;
 h1,h2,h3,h4,h5,h6 {text-align:left; font-family: "Roboto Mono", monospace;}
 h1.title {text-align:center; font-family: "Roboto Mono", monospace;}
 code {font-family: "Roboto Mono", monospace;}
+.sourceCode {font-family: "Roboto Mono", monospace;}
+.navbar {
+font-family: "Roboto Mono", monospace; background-color: #3D7068; font-size: 1.5em;
+color: white;
+}
+.navbar a {color: white;}
+.footer {
+font-family: "Roboto Mono", monospace; background-color: #3D7068; font-size: 1em;
+color: white;
+}
+.footer a {color: white;}
+nav{
+font-family: "Roboto Mono", monospace; font-size: 0.8em;
+position: fixed;
+right: 5em;
+width: 20em;
+border: 1px solid #36454F;
+border-radius: 5px;
+padding: 1em;
+line-height: 2;
+text-align: left;
+}
+@media (max-width: 1300px) {
+nav {
+display: none;
+}
+}
 </style>
 </head>
 <body>
   <header>
-    <h1>Heston Model: Explanation and Calculator</h1>
+    <h1></h1>
   </header>
+  <div class="navbar">
+    | <a href="/">Home</a> | <a href="/blog">Blog</a> |
+  </div>
   <div class="content">
+    <nav class="toc">
+      <strong>Contents</strong>
+      <ul>
+      <li><a href="#introduction-heston"
+      id="introduction-heston">Introduction</a></li>
+      <li><a href="#derivation" id="derivation">A Note on
+      Gold</a></li>
+      <li><a href="#heston-calc"
+      id="heston-calc">Calculator</a></li>
+      </ul>
+    </nav>
+    <h1
+      id="heston-model">The Heston Model</h1>
     <main class="main-content">
-      <h2>Introduction</h2>
+      <h2 id="introduction-heston">Introduction</h2>
       <p>The Heston model is a popular framework in quantitative finance for modeling the stochastic volatility of an asset. It assumes that the variance of the asset price follows a mean-reverting stochastic process, leading to a more realistic representation of market behaviors such as volatility clustering.</p>
-      <h2>Deriving the Asset Pricing Equation</h2>
+      <h2 id="derivation">Deriving the Asset Pricing Equation</h2>
       <p>The asset price \( S_t \) evolves as:</p>
       <pre><code>dS_t = r S_t dt + \sqrt{v_t} S_t dW_t^S</code></pre>
       <p>The variance \( v_t \) follows the dynamics:</p>
       <pre><code>dv_t = \kappa (\theta - v_t) dt + \sigma_v \sqrt{v_t} dW_t^v</code></pre>
       <p>where \( \rho = \text{Corr}(W_t^S, W_t^v) \). Solving these equations under the risk-neutral measure yields the pricing formula for derivatives.</p>
-      <h2>Heston Option Pricing Calculator</h2>
+      <h2 id="heston-calc">Heston Option Pricing Calculator</h2>
       <form id="calculator">
         <label for="s">Stock Price (\(S_t\)):</label><br />
         <input type="number" id="s" name="s" required /><br />
