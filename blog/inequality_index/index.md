@@ -44,7 +44,7 @@ This suggests two things. Firstly, the observed difference between \(G(x)\) and 
 
 To demonstrate the intuitive use of \(\sigma_{A}(x)\) as an inequality measure and check its sanity w.r.t \(A(x)\) for a given \(\epsilon\), we visualised the historical trends of inequality observed in India. Here, I attach the trend we highlighted taking \(\epsilon = 0.5\). Since our exploration here is limited to India, we urge the reader(s) to explore these trends for other countries and/or regions using our method.
 
-![Visualisations of the Subramniam Index]()
+![Visualisations of the Subramaniam Index for India](blog/inequality_index/si_05.png "Visualisations of the Subramaniam Index for India")
 
 [^1]: Gini, C. (1936). *"On the Measure of Concentration with Special Reference to Income and Statistics,"* Colorado College Publication, General Series No. 208, pp. 73–79.
 [^2]: Atkinson, A.B. (1970) *"On the measurement of inequality."* Journal of Economic Theory, 2 (3), pp. 244–263.
