@@ -233,7 +233,14 @@ display: none;
   <div class="content">
     <nav class="toc">
       <strong>Contents</strong>
-      
+      <ul>
+      <li><a href="#mathematical-and-computing-limitations"
+      id="toc-mathematical-and-computing-limitations">Mathematical and Computing Limitations</a></li>
+      <li><a href="#our-approach-to-data" id="toc-our-approach-to-data">Our Approach to Data</a></li>
+      <li><a href="#data-analysis-shortfalls-of-the-gini-coefficient"
+      id="toc-data-analysis-shortfalls-of-the-gini-coefficient">Data Analysis: Shortfalls of the Gini Coefficient</a></li>
+      <li><a href="#data-analysis-demonstration-of-the-subramaniam-index" id="toc-data-analysis-demonstration-of-the-subramaniam-index">Data Analysis: Demonstration of the Subramaniam Index</a></li>
+      </ul>
     </nav>
     <main class="main-content">
       <h1
@@ -244,9 +251,9 @@ display: none;
       <p>The Gini coefficient<a href="#fn1" class="footnote-ref"
       id="fnref1" role="doc-noteref"><sup>1</sup></a> currently has a
       near-monopoly over inequality measurement in economic research.
-      (G(x)) is calculated as the normalised mean of piecewise absolute
-      differences in incomes in an income distribution (x =
-      (x_{1}x_{n})). It is a great measure of the statistical dispersion
+      \(G(x)\) is calculated as the normalised mean of piecewise absolute
+      differences in incomes in an income distribution \(x = (x_{1})\hdots x_{n}\).
+      It is a great measure of the statistical dispersion
       of income in an economy. However, it doesn’t declare or consider
       the implicit value judgements or social welfare considerations
       made in its calculation. This is a critical flaw – after all,
@@ -258,11 +265,11 @@ display: none;
       efficiency.</p>
       <p>The Atkinson Index<a href="#fn2" class="footnote-ref"
       id="fnref2" role="doc-noteref"><sup>2</sup></a> is a normative
-      measure of inequality, where a parameter (), known as the “level
+      measure of inequality, where a parameter \(\epsilon\), known as the “level
       of inequality aversion” is used to weigh incomes. For an
-      inreasing-order income distribution (x = (x_{1}x_{n})), (A(x)) is
-      calculated as (1 - }{(x)}), where (x_{e}) is the equivalent
-      equally distributed income and ((x)) is the arithmetic mean of
+      inreasing-order income distribution \((x = (x_{1}\hdots x_{n}))\), \(A(x))\ is
+      calculated as \(1 - \frac{x_{e}}{\mu(x)}\), where \(x_{e})\ is the equivalent
+      equally distributed income and \(\mu(x)\) is the arithmetic mean of
       incomes in the distribution. It represents the share of total
       income that must be sacrificed to instate perfect equality without
       dropping overall welfare. Thus, it is a strong candidate to solve
@@ -272,7 +279,7 @@ display: none;
       <p>Though, arguably, the Gini coefficient is visualisable as a
       ratio of the area between the line of perfect equality and an
       economy’s Lorenz curve (the perceived inequality) and the total
-      area under the line of perfect equality, i.e. (), it remains
+      area under the line of perfect equality, it remains
       difficult for the layman to interpret. The same goes for the
       Atkinson Index, which requires a fair bit of statistical and
       mathematical know-how. This complexity has the unfortunate
@@ -280,8 +287,8 @@ display: none;
       from those most adversely affected by it.</p>
       <p>To encourage a solution to these problems, me and Ishan Dubey
       wrote a paper deriving a simplified measure of inequality, the
-      Subramaniam Index, (<em>{A}(x)), from the Atkinson Index.
-      (</em>{A}(x)) condenses inequality measurement to what we believe
+      Subramaniam Index, \(\sigma_{A}(x)\), from the Atkinson Index.
+      \(\sigma_{A}(x)\) condenses inequality measurement to what we believe
       to be the most intuitive way to understand inequality; it
       represents the share of cake that the poorer person gets in a
       two-person cake-sharing problem, while having the inequality
@@ -291,21 +298,20 @@ display: none;
       <p>To access a more detailed mathematical exposition leading us to
       the Subramaniam Index, please <a
       href="mailto:malhotra.vedant@gmail.com">mail me</a> for the paper.
-      The equation that we solve to derive (_{A}(x)) is:</p>
-      <p>[ <em>{A}(x)^{1-} + (1 - </em>{A}(x))^{1-} = 2^{}(1 - (x)(1 -
-      2^{})) ]</p>
+      The equation that we solve to derive \(\sigma_{A}(x)\) is:</p>
+      <p>\[\sigma_{A}(x)^{1-\epsilon} + (1 - \sigma_{A}(x))^{1-\epsilon} = 2^{\epsilon}\cdot (1 - \tilde{A}(x)\cdot(1 -
+      2^{\frac{-\epsilon}{1-\epsilon}}))\]</p>
       <p>Alas, it doesn’t have a closed-form solution. So, we attempt to
       simplify a problem by adding a little bit more complication to it
       and apply root-solving methods on real-world data to derive this
       index for different countries across time.</p>
       <p>Additionally, due to the structure of this equation, we cannot
-      account for values of (&gt; 1). This limits our ability to
+      account for values of \(\epsilon \geq 1\). This limits our ability to
       calculate the index for higher levels of inequality aversion.
-      However, since it can be calculated for (= 1 - ) for a tiny (), it
+      However, since it can be calculated for \(\epsilon = 1 - \delta\) for a tiny \(\delta\), it
       serves as a great complement for the Gini coefficient, which is
-      postulated to be most similar to the Atkinson Index when (=
-      1).</p>
-      <p>Obviously, (_{A}(x)) cannot and should not be treated as a
+      postulated to be most similar to the Atkinson Index when \(\epsilon = 1\).</p>
+      <p>Obviously, \(\sigma_{A}(x)\) cannot and should not be treated as a
       one-size-fits-all measure of inequality. In fact, we believe it
       shouldn’t be used alone at all, since it abstracts away from the
       income distribution and delivers simplification at the cost of
@@ -330,12 +336,12 @@ display: none;
       Analysis: Shortfalls of the Gini Coefficient</h1>
       <p>Firstly, we observe a seemingly large difference in the means
       of the Gini coefficient and the Atkinson Index for a relatively
-      high level of inequality aversion, say (= 2). Then, we run paired
+      high level of inequality aversion, say \(\epsilon = 2\). Then, we run paired
       ttests across different income groups<a href="#fn4"
       class="footnote-ref" id="fnref4"
       role="doc-noteref"><sup>4</sup></a> to confirm our hypothesis and
       check for a relationship between the perceived difference between
-      (G(x)) and (A(x)) and the income group a country belongs to. Here
+      \(G(x)\) and \(A(x)\) and the income group a country belongs to. Here
       are the results:</p>
       <table>
       <colgroup>
@@ -386,7 +392,7 @@ display: none;
       </tbody>
       </table>
       <p>This suggests two things. Firstly, the observed difference
-      between (G(x)) and (A(x)) is statistically significant at all
+      between \(G(x)\) and \(A(x)\) is statistically significant at all
       conventional levels of confidence, for all income groups.
       Secondly, the statistical significance of this difference
       increases as we move up the income groups. This suggests that the
@@ -398,15 +404,15 @@ display: none;
       inter-country inequality.</p>
       <h1 id="data-analysis-demonstration-of-the-subramaniam-index">Data
       Analysis: Demonstration of the Subramaniam Index</h1>
-      <p>To demonstrate the intuitive use of (_{A}(x)) as an inequality
-      measure and check its sanity w.r.t (A(x)) for a given (), we
+      <p>To demonstrate the intuitive use of \(\sigma_{A}(x)\) as an inequality
+      measure and check its sanity w.r.t \(A(x)\) for a given \(\epsilon\), we
       visualised the historical trends of inequality observed in India.
-      Here, I attach the trend we highlighted taking (= 0.5). Since our
+      Here, I attach the trend we highlighted taking \(\epsilon= 0.5)\. Since our
       exploration here is limited to India, we urge the reader(s) to
       explore these trends for other countries and/or regions using our
       method.</p>
       <figure>
-      <img src="blog/inequality_index/si_05.png"
+      <img src="si_05.png"
       title="Visualisations of the Subramaniam Index for India"
       alt="Visualisations of the Subramaniam Index for India" />
       <figcaption aria-hidden="true">Visualisations of the Subramaniam
