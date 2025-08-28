@@ -1,4 +1,4 @@
-# MD to HTML Blog
+# MD to HTML
 
 The following line of code makes all the magic happen on this blog:
 
