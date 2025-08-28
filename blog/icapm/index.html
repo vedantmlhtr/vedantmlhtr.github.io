@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICAPM notes</title>
+  <style type="text/css">@font-face {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-display: swap;
+}
+@font-face {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-display: swap;
+}
+</style>
+<style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+body {
+text-align: justify; font-family: "Roboto", sans-serif;
+line-height: 1.5; hyphens: auto;
+}
+h1,h2,h3,h4,h5,h6 {text-align:left; font-family: "Roboto Mono", monospace;}
+h1.title {text-align:center; font-family: "Roboto Mono", monospace;}
+code {font-family: "Roboto Mono", monospace;}
+.sourceCode {font-family: "Roboto Mono", monospace;}
+.navbar {
+font-family: "Roboto Mono", monospace; background-color: #3D7068; font-size: 1.5em;
+color: white;
+}
+.navbar a {color: white;}
+.footer {
+font-family: "Roboto Mono", monospace; background-color: #3D7068; font-size: 1em;
+color: white;
+}
+.footer a {color: white;}
+nav{
+font-family: "Roboto Mono", monospace; font-size: 0.8em;
+position: fixed;
+right: 5em;
+width: 20em;
+border: 1px solid #36454F;
+border-radius: 5px;
+padding: 1em;
+line-height: 2;
+text-align: left;
+}
+@media (max-width: 1300px) {
+nav {
+display: none;
+}
+}
+</style>
+</head>
+<body>
+  <header>
+    <h1>iCAPM notes</h1>
+  </header>
+  <div class="navbar">
+    | <a href="/">Home</a> | <a href="/blog">Blog</a> |
+  </div>
+  <div class="content">
+    <nav class="toc">
+      <strong>Contents</strong>
+      <ul>
+      <li><a
+      href="#exploring-the-intertemporal-capital-asset-pricing-model"
+      id="toc-exploring-the-intertemporal-capital-asset-pricing-model">Exploring
+      The Intertemporal Capital Asset Pricing Model</a></li>
+      <li><a href="#why-did-one-beta-stop-being-enough"
+      id="toc-why-did-one-beta-stop-being-enough">Why Did One Beta Stop
+      Being Enough?</a></li>
+      <li><a href="#the-moving-parts-of-the-icapm"
+      id="toc-the-moving-parts-of-the-icapm">The Moving Parts of the
+      ICAPM</a></li>
+      <li><a href="#trying-my-hand-at-finding-hedging-portfolios"
+      id="toc-trying-my-hand-at-finding-hedging-portfolios">Trying My
+      Hand at Finding Hedging Portfolios</a></li>
+      <li><a href="#applications"
+      id="toc-applications">Applications</a></li>
+      </ul>
+    </nav>
+    <main class="main-content">
+      <h1
+      id="exploring-the-intertemporal-capital-asset-pricing-model">Exploring
+      The Intertemporal Capital Asset Pricing Model</h1>
+      <p>Let’s first lay down a plain english understanding of the
+      traditional Capital Asset Pricing Model (CAPM). The CAPM,
+      introduced by Jack Treynor, William Sharpe, John Lintner, and Jan
+      Mossin independently in the 1960s, is a model used to determine a
+      theoretically appropriate <strong>required rate of return</strong>
+      of an asset (A), given its risk with respect to the market
+      portfolio (which comprises every stock in our space, weighed by
+      its contribution to the total market capitalisation).</p>
+      <p>[ E(r_A) = r_f + _{A,M} E(r_M)]</p>
+      <p>Here, (r_f) represents the <strong>risk-free rate of
+      return,</strong> typically taken to be the yield from a 10-year
+      government-issued bond, while <strong>beta</strong> is our
+      relative-risk measure of choice, measured as follows:</p>
+      <p>[ _{A,M} = ]</p>
+      <h1 id="why-did-one-beta-stop-being-enough">Why Did One Beta Stop
+      Being Enough?</h1>
+      <p>Understandably, among other things, Roll’s Critique<a
+      href="#fn1" class="footnote-ref" id="fnref1"
+      role="doc-noteref"><sup>1</sup></a> regarding the impossibility of
+      observing a true market portfolio, which is treated as the
+      centerpiece of the CAPM, concerned economics and finance
+      professionals alike. This made way for various other models of the
+      stock market, one of which was the Intertemporal (I-) CAPM,
+      introduced by Robert Merton in the 1970s.</p>
+      <p>The ICAPM remains relatively obsolete in classrooms and hedge
+      funds alike. However, I personally feel that it offers a somewhat
+      intuitive underpinning of a stock’s expected return, measured
+      against fluctuations in macroeconomic indicators like GDP,
+      consumption, inflation, and industrial productivity.</p>
+      <h1 id="the-moving-parts-of-the-icapm">The Moving Parts of the
+      ICAPM</h1>
+      <p><strong>Hedging portfolios</strong> are the most critical
+      component of the ICAPM. While millions of stock price datapoints
+      are produced minute-by-minute, indices tracking the health of the
+      macroeconomy are typically released monthly, if not quarterly.</p>
+      <p>This necessitates a high-frequency alternative to these
+      measures. This gap is filled by hedging portfolios which, in
+      simple terms, are created by throwing our universe of stock price
+      data into a CSV, merging it with macroeconomic data, and running
+      thousands of simulations attaching different weights to chosen
+      stocks in the hope of finding a vector of weights that results in
+      a portfolio highly correlated with macroeconomic indicators.</p>
+      <p>Finding a correlation coefficient ~1 is very difficult.
+      However, with some effort, getting close is quite doable.</p>
+      <h1 id="trying-my-hand-at-finding-hedging-portfolios">Trying My
+      Hand at Finding Hedging Portfolios</h1>
+      <p>I took daily open and close price data for the last 10 years
+      from the NIFTY500 companies (~2.5m datapoints) and ranked stocks
+      on two criteria: their correlation with macroeconomic indicators
+      (GDP, IIP - an index of industrial productivity, and CPI - an
+      index of consumer price inflation) and the lack thereof with each
+      other. Then, avoiding short-selling, I generated portfolios
+      attaching random weights to the top 15 selected stocks, giving us
+      the following results:</p>
+      <table>
+      <thead>
+      <tr>
+      <th>Macroeconomic Indicator</th>
+      <th>Hedging Portfolio Correlation</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>GDP</td>
+      <td>0.77</td>
+      </tr>
+      <tr>
+      <td>IIP</td>
+      <td>0.69</td>
+      </tr>
+      <tr>
+      <td>CPI</td>
+      <td>0.61</td>
+      </tr>
+      </tbody>
+      </table>
+      <h1 id="applications">Applications</h1>
+      <p>This section is a work-in-progress and something I’ll keep
+      adding to. For now, I’ve used the ICAPM as a valuation metric. The
+      principle behind this lies in the fact that returns are inversely
+      proportional to its price. Thus, in theory, a stock having higher
+      realised return than its equilibrium ICAPM return (the difference
+      between the two is the <strong>ICAPM alpha</strong>) implies that
+      our stock is undervalued.</p>
+      <p>Based on this principle, adding a couple more bells and
+      whistles like rolling betas from the last 12 months and
+      short-selling (to test our core BLSH theory<a href="#fn2"
+      class="footnote-ref" id="fnref2"
+      role="doc-noteref"><sup>2</sup></a>), I constructed a very simple
+      trading algorithm which can be found on the github repository for
+      this project<a href="#fn3" class="footnote-ref" id="fnref3"
+      role="doc-noteref"><sup>3</sup></a>. So far, results from
+      back-testing this algorithm have been mixed. It has realised a
+      ~-6% return in the last year…however, it has also produced an 85%
+      total return since 2015, translating to a ~7.1% CAGR as compared
+      to the NIFTY50’s ~11.4%, which is a motivating result for further
+      updating the algorithm.</p>
+      <figure>
+      <img src="blog/icapm/icapm-trade.png"
+      title="Latest Trading Algorithm Results"
+      alt="Latest Trading Algorithm Results" />
+      <figcaption aria-hidden="true">Latest Trading Algorithm
+      Results</figcaption>
+      </figure>
+      <section id="footnotes"
+      class="footnotes footnotes-end-of-document" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn1"><p>https://en.wikipedia.org/wiki/Roll%27s_critique<a
+      href="#fnref1" class="footnote-back"
+      role="doc-backlink">↩︎</a></p></li>
+      <li id="fn2"><p>All rational investment decisions have a buy low
+      sell high hypothesis; ours is based on the equilibrium produced by
+      the ICAPM.<a href="#fnref2" class="footnote-back"
+      role="doc-backlink">↩︎</a></p></li>
+      <li id="fn3"><p>https://github.com/vedantmlhtr/icapm<a
+      href="#fnref3" class="footnote-back"
+      role="doc-backlink">↩︎</a></p></li>
+      </ol>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">
+    Contact: <a href="https://github.com/vedantmlhtr">[GitHub]</a> 
+    <a href="https://www.linkedin.com/in/malhotra-vedant/">[LinkedIn]</a>
+    <a href="mailto:malhotra.vedant@gmail.com">[Mail]</a>
+  </footer>
+</body>
+</html>
